@@ -1,0 +1,33 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Purelane Dawn Extension",
+    "theme_version": "1.0.0",
+    "theme_author": "AI Product Engineer",
+    "theme_documentation_url": "https://github.com/Somay-kousis/swa1",
+    "theme_support_url": "https://github.com/Somay-kousis/swa1"
+  },
+  {
+    "name": "Purelane Color Palette",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_brand",
+        "label": "Brand Primary Color",
+        "default": "#4b3a8f"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Accent Color",
+        "default": "#f0a03c"
+      },
+      {
+        "type": "color",
+        "id": "color_background",
+        "label": "Dark Background Color",
+        "default": "#17102b"
+      }
+    ]
+  }
+]
