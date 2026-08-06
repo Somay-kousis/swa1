@@ -1,0 +1,31 @@
+[
+  {
+    "namespace": "custom",
+    "key": "rating",
+    "name": "Product Rating",
+    "description": "Average review rating score display (e.g. 4.8)",
+    "type": "number_decimal",
+    "validation": {
+      "min": 0.0,
+      "max": 5.0
+    }
+  },
+  {
+    "namespace": "custom",
+    "key": "review_count",
+    "name": "Product Review Count",
+    "description": "Total number of verified customer reviews",
+    "type": "number_integer",
+    "validation": {
+      "min": 0
+    }
+  },
+  {
+    "namespace": "custom",
+    "key": "badge_tag",
+    "name": "Product Card Badge Tag",
+    "description": "Pill text rendered on product grid cards (e.g. Best Seller, Top Rated, New)",
+    "type": "single_line_text_field",
+    "validation": {}
+  }
+]
