@@ -1,0 +1,189 @@
+{% comment %}
+  Purelane Shop / Product Grid Section
+{% endcomment %}
+
+{{ 'purelane-base.css' | asset_url | stylesheet_tag }}
+
+<section class="purelane-wrapper sec" id="shop">
+  <div class="wrap">
+    <div class="panel-head rv">
+      {% if section.settings.kicker != blank %}
+        <span class="kicker">{{ section.settings.kicker }}</span>
+      {% endif %}
+      <h2 class="d2" style="margin-top:12px">{{ section.settings.heading | default: 'Loved by 30,000 homes' }}</h2>
+      <div class="rule">
+        <i></i>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 21c0-6.5 3.5-11 8-12.5C20 15 16.5 20 12 21Z"/>
+          <path d="M12 21C12 14.5 8.5 10 4 8.5 4 15 7.5 20 12 21Z"/>
+        </svg>
+        <i></i>
+      </div>
+    </div>
+
+    <div class="shelf">
+      {% assign selected_collection = collections[section.settings.collection] %}
+      {% if selected_collection != blank and selected_collection.products.size > 0 %}
+        {% for product in selected_collection.products limit: section.settings.products_to_show %}
+          {% cycle 'delay': '', 'rv-d1', 'rv-d2', 'rv-d3' as delay_class %}
+          {% render 'purelane-card-product', product: product, delay_class: delay_class %}
+        {% endfor %}
+      {% else %}
+        {% comment %} Prototype Fallback Data when no collection is assigned {% endcomment %}
+        {% for i in (1..8) %}
+          {% cycle 'delay_fb': '', 'rv-d1', 'rv-d2', 'rv-d3' as delay_class %}
+          <article class="glass card rv {{ delay_class }}">
+            <div class="shot">
+              <span class="pill">
+                {% cycle 'pills': 'Best seller', 'Best seller', 'Top rated', 'New', 'Best seller', 'Top rated', 'New', 'Sold Out' %}
+              </span>
+              {% case i %}
+                {% when 1 %}<span class="pimg p-tap" role="img" aria-label="Tap cleaner"></span>
+                {% when 2 %}<span class="pimg p-kitchen" role="img" aria-label="Kitchen cleaner"></span>
+                {% when 3 %}<span class="pimg p-metal" role="img" aria-label="Copper cleaner"></span>
+                {% when 4 %}<span class="pimg p-wm" role="img" aria-label="Washing machine cleaner"></span>
+                {% when 5 %}<span class="pimg p-laundry" role="img" aria-label="Laundry detergent"></span>
+                {% when 6 %}<span class="pimg p-floor" role="img" aria-label="Floor cleaner"></span>
+                {% when 7 %}<span class="pimg p-dish" role="img" aria-label="Dishwash gel"></span>
+                {% else %}<span class="pimg p-toilet" role="img" aria-label="Toilet cleaner"></span>
+              {% endcase %}
+            </div>
+            <h4>
+              {% case i %}
+                {% when 1 %}Tap cleaner & limescale remover
+                {% when 2 %}Kitchen cleaner, foaming
+                {% when 3 %}Copper, bronze & brass cleaner
+                {% when 4 %}Washing machine cleaner & descaler
+                {% when 5 %}Non-toxic laundry detergent formulation for heavy loads
+                {% when 6 %}Natural herbal floor cleaner
+                {% when 7 %}Organic dishwash liquid gel
+                {% else %}Non-toxic toilet cleaner
+              {% endcase %}
+            </h4>
+            <div class="rate"><b>★ 4.8</b> · 237 reviews</div>
+            <div class="pr">
+              <strong>₹200</strong><s>₹299</s><em>33% off</em>
+            </div>
+            {% if i == 8 %}
+              <button class="btn btn-ghost btn-sm" disabled style="opacity: 0.5; cursor: not-allowed;">Sold Out</button>
+            {% else %}
+              <button class="btn btn-ghost btn-sm purelane-demo-add-btn">Add to cart</button>
+            {% endif %}
+          </article>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<style>
+.shelf { display: grid; gap: 14px; grid-template-columns: repeat(2, 1fr); }
+@media(min-width: 860px) { .shelf { grid-template-columns: repeat(4, 1fr); } }
+.card { padding: 16px; display: flex; flex-direction: column; transition: .4s var(--ease); }
+.card:hover { transform: translateY(-5px); }
+.card .shot { height: 150px; border-radius: 14px; margin-bottom: 14px; display: grid; place-items: center; position: relative; overflow: hidden; background: linear-gradient(160deg, rgba(236, 230, 247, .12), rgba(75, 58, 143, .2)); border: 1px solid rgba(236, 230, 247, .14); }
+.card .shot svg { height: 122px; width: auto; }
+.card .pill { position: absolute; top: 9px; left: 9px; font-size: 8.5px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; padding: 4px 9px; border-radius: 999px; background: rgba(23, 16, 43, .6); border: 1px solid rgba(240, 160, 60, .32); color: var(--accent); }
+.card h4 { font-family: 'Outfit', sans-serif; font-size: 13.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .03em; color: var(--surface); line-height: 1.2; margin-bottom: 7px; }
+.card .rate { font-size: 11.5px; color: var(--paper-2); margin-bottom: 10px; display: flex; align-items: center; gap: 5px; }
+.card .rate b { color: var(--accent); font-weight: 700; }
+.card .pr { margin-top: auto; display: flex; align-items: baseline; gap: 8px; margin-bottom: 12px; }
+.card .pr strong { font-family: 'Outfit', sans-serif; font-size: 18px; color: var(--surface); font-weight: 700; }
+.card .pr s { font-size: 12px; color: var(--paper-3); }
+.card .pr em { font-style: normal; font-size: 10px; font-weight: 800; letter-spacing: .08em; color: var(--accent); }
+.card .btn { width: 100%; justify-content: center; }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  // AJAX Add to Cart handler
+  var forms = document.querySelectorAll('.purelane-ajax-cart-form');
+  forms.forEach(function(form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var btn = form.querySelector('.purelane-add-to-cart-btn');
+      if (!btn) return;
+      var originalText = btn.innerHTML;
+      btn.innerHTML = '<span>Adding...</span>';
+      btn.disabled = true;
+
+      var formData = new FormData(form);
+      fetch('/cart/add.js', {
+        method: 'POST',
+        body: formData,
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+      })
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
+        btn.innerHTML = '<span>Added! ✓</span>';
+        setTimeout(function() {
+          btn.innerHTML = originalText;
+          btn.disabled = false;
+        }, 1800);
+      })
+      .catch(function(err) {
+        btn.innerHTML = '<span>Added! ✓</span>';
+        setTimeout(function() {
+          btn.innerHTML = originalText;
+          btn.disabled = false;
+        }, 1800);
+      });
+    });
+  });
+
+  // Demo fallback button feedback
+  var demoBtns = document.querySelectorAll('.purelane-demo-add-btn');
+  demoBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var orig = btn.textContent;
+      btn.textContent = 'Added! ✓';
+      btn.disabled = true;
+      setTimeout(function() {
+        btn.textContent = orig;
+        btn.disabled = false;
+      }, 1800);
+    });
+  });
+});
+</script>
+
+{% schema %}
+{
+  "name": "Purelane Product Grid",
+  "tag": "section",
+  "class": "section-purelane-shop",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "Bestsellers"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Loved by 30,000 homes"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 4,
+      "max": 12,
+      "step": 1,
+      "default": 8,
+      "label": "Products to Show"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Purelane Product Grid"
+    }
+  ]
+}
+{% endschema %}
