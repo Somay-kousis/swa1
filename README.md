@@ -1,10 +1,10 @@
 <h1 style="border-bottom: none; margin-top: 0; padding-top: 0;">Purelane Shopify Dawn Extension</h1>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Shopify-Dawn%20Theme-blue.svg" alt="Shopify Dawn" />
+  <img src="https://img.shields.io/badge/Shopify-Dawn%20Theme-7AB55C.svg" alt="Shopify Dawn" />
   <img src="https://img.shields.io/badge/Liquid-Sections%20%2B%20Snippets-orange.svg" alt="Liquid" />
-  <img src="https://img.shields.io/badge/CSS-Glassmorphism%20Design-blueviolet.svg" alt="Glassmorphism" />
-  <img src="https://img.shields.io/badge/JS-Water%20Parallax%20Engine-yellowgreen.svg" alt="Water Parallax" />
+  <img src="https://img.shields.io/badge/CSS-Glassmorphism%20Design-1572B6.svg" alt="Glassmorphism" />
+  <img src="https://img.shields.io/badge/JS-Water%20Parallax%20Engine-F7DF1E.svg" alt="Water Parallax" />
   <img src="https://img.shields.io/badge/Accessibility-WCAG%20AA%20Compliant-green.svg" alt="Accessibility" />
 </p>
 
@@ -25,17 +25,6 @@
 This diagram illustrates how the modular files are organized and how components communicate:
 
 ```mermaid
-%%{init: {
-  'theme': 'dark',
-  'themeVariables': {
-    'background': '#17102b',
-    'primaryColor': '#241a3d',
-    'primaryTextColor': '#ece6f7',
-    'lineColor': '#f0a03c',
-    'nodeBorder': '#ece6f7',
-    'tertiaryColor': '#4b3a8f'
-  }
-}}%%
 flowchart TD
     subgraph GlobalLayout ["Theme Layout Shell"]
         ThemeLiquid["layout/theme.liquid<br/>(Global head, preconnects, content_for_layout)"]
@@ -60,14 +49,6 @@ flowchart TD
     Shop -->|renders| ProductCard
     Hero -.->|parallax target| WaterJS
     Reviews -.->|duplicate loop| BaseCSS
-
-    classDef layoutNode fill:#241a3d,stroke:#f0a03c,stroke-width:1.5px,color:#ece6f7;
-    classDef sectionNode fill:#4b3a8f,stroke:#ece6f7,stroke-width:1.5px,color:#faf7fd;
-    classDef snippetNode fill:#17102b,stroke:#f0a03c,stroke-width:1.5px,color:#ece6f7;
-
-    class ThemeLiquid,BaseCSS,WaterJS layoutNode;
-    class Hero,Shop,Combos,Bundles,Reviews sectionNode;
-    class ProductCard snippetNode;
 ```
 
 ---
